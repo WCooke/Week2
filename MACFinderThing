@@ -1,0 +1,30 @@
+#. Get a hold of the big list of MAC address vendors that comes with WireShark. Find it on the
+#  PC or on-line.
+#                – If you don’t know what a MAC address is, ask or google it.
+#                – Write a program in Python that accepts a partial MAC address and then uses this list to
+#                  identify the vendor
+
+import urllib.request
+Url = 'https://code.wireshark.org/review/gitweb?p=wireshark.git;a=blob_plain;f=manuf;hb=HEAD'
+Response = urllib.request.urlopen(Url)
+Data = Response.read()
+Text = Data.decode('utf-8')
+
+DataList = []
+for Line in Text.splitlines():
+    DataList.append(Line)
+
+UserInput = input("Enter part of the MAC address you want to search for: ")
+
+SearchResults = "\n".join(x for x in DataList if UserInput in x)
+SearchArray = SearchResults.splitlines()
+TopResult = SearchArray[0]
+SeperatedTopResults = str.split(TopResult)
+FullName = ""
+for x in range(3, len(SeperatedTopResults)):
+    FullName = FullName + SeperatedTopResults[x] + " "
+
+print("*"*60)
+print("The partial MAC address " + SeperatedTopResults[0] + " belongs to " + SeperatedTopResults[1])
+print("Otherwise known as: " + FullName)
+print("*"*60)
