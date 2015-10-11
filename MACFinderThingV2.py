@@ -1,3 +1,5 @@
+# A program for searching with partial MAC addresses to find their vendors
+
 # Searches the Data list based on what a user inputs and then outputs the results of that search
 def SearchForMacAddress():
     UserInput = input("Enter part of the MAC address you want to search for: ")
